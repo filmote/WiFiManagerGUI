@@ -6,8 +6,17 @@ There are numerous articles, projects and libraries that set the ESP8266 into Ac
 
 I have used a number of screens on the Arduino but wanted this project to be compatible with the small 128x64 pixel OLED displays that have become very popular and cheap to buy.
 
-The inspiration for this project came two separate GitHub projects :
-* @Tzapu 's amazing [WifiManager](https://github.com/tzapu/WiFiManager) project and 
-* @Squix78's [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library for driving these little OLED displays.
+The inspiration for this project came from two separate GitHub projects :
 
+* @tzapu for his amazing [WifiManager](https://github.com/tzapu/WiFiManager) project and 
+* @squix78 for his [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library for driving these little OLED displays.
 
+##In Operation
+
+Select an Access Point
+![Select an Access Point](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_1_sml.jpg)
+![Enter a Password](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_2_sml.jpg)
+![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_3_sml.jpg)
+
+##Confessions 
+This is my first GitHub project.  Go easy on me.
