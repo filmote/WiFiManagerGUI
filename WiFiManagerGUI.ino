@@ -76,9 +76,9 @@
 //     |      |                                                                                                                                                                 |
 //     |      +------------------------------------------------->            <<<<<<   You application logic.  >>>>>>           ---------------------->--------------------------+
 //     |           STATUS_APPLICATION_INIT                                                                                                     STATUS_ACCESSPOINTS_INIT         |
-//     |                                                                                                                                                  or                    |
-//     |                                                                                                                                       STATUS_ENTERPASSWORD_INIT        |
-//     |                                                                                                                                                  or                    V
+//     |                                                                      In the sample code provided, this is                                        or                    |
+//     |                                                                      implemented in the init_application()                            STATUS_ENTERPASSWORD_INIT        |
+//     |                                                                         and loop_application() methods.                                          or                    V
 //     |                                                                                                                                          STATUS_CONNECT_INIT           |
 //     |                                                                                                                                                                        |                
 //     +-------------------------------------------------------------------------------------------<----------------------------------------------------------------------------+

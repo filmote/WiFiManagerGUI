@@ -13,10 +13,24 @@ The inspiration for this project came from two separate GitHub projects :
 
 ##In Operation
 
-Select an Access Point
+When the ESP8266 first starts it will attempt to connect to any existing SSID stored in the EEPROM using the credentials it retrieves.  If this connection fails, it will then prompt the user to select an Access Point, enter a password and then connect to the WiFi.  If a successful connection is made, control passes to your application otherwise the user is prompted to confirm the Access Point and / or password. 
+
+Select an Access Point ..
+
 ![Select an Access Point](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_1_sml.jpg)
+
+Enter a Password ..
+
 ![Enter a Password](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_2_sml.jpg)
+
+Hopefully your connection will succeed, otherwise you may see this message ..
+
 ![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_3_sml.jpg)
 
 ##Confessions 
 This is my first GitHub project.  Go easy on me.
+
+I have thoroughly documented the code - well as thoroughly as any developer does - including pulling all the constants out into #define values where appropriate.  
+
+The code details a well defined state machine and shows how to control movement through the various connection screens and then into your own application.
+
