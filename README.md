@@ -51,11 +51,12 @@ I built my prototype using some bits and pieces following the schematic shown be
 The following is a list of tasks that need to be done, may be done and could possibly be done by myself or with the help of others.  I am not precious about the code and would prefer to see it completed than to sit idle ..
 
 - [x] Publish initial code on GitHub
-- [ ] Determine some appropriate resistor sizes that provide the broadest input values (between 0 - 1023, the resistors I used provide a narrow range between 110 and 330 resulting in some errors).
 - [ ] More testing (obvious)
+- [ ] Determine some appropriate resistor sizes that provide the broadest input values (between 0 - 1023, the resistors I used provide a narrow range between 110 and 330 resulting in some errors).
 - [ ] Harden the handling of the input buttons - debounce, etc
 - [ ] Support input via the digital inputs using a matrix
 - [ ] Support displays of different resolutions  
+- [ ] Support I2C and SPI communication to OLED
 
 <br /><br />
 ##Confessions 
