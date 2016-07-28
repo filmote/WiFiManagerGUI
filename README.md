@@ -1,6 +1,7 @@
 ##WiFiManagerGUI
 An ESP8266 / OLED display project for connecting to an Access Point using a GUI.
 
+
 ##Background
 There are numerous articles, projects and libraries that set the ESP8266 into Access Point mode allowing you to connect and configure an SSID and password before restarting the device in Station mode.  These are great but what if you actually have a display attached to the device?  Why can't the device attempt to connect to previously saved settings and if this fails, allow the user to select an Access Point and enter a pasword using a GUI?
 
@@ -10,6 +11,7 @@ The inspiration for this project came from two separate GitHub projects :
 
 * @tzapu for his amazing [WifiManager](https://github.com/tzapu/WiFiManager) project and 
 * @squix78 for his [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library for driving these little OLED displays.
+
 
 ##In Operation
 
@@ -27,10 +29,25 @@ Hopefully your connection will succeed, otherwise you may see this message ..
 
 ![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_3_sml.jpg)
 
+
+##About the Code
+
+* the code is thoroughly documented the code - well as thoroughly as any developer does
+* all constants have been pulled out into #define values where appropriate
+* the code details a well defined state machine and shows how to control movement through the various connection screens and then into your own application (refer details in the code itself)
+* the code includes detailed debugging which can be turned on or off in its entirety or in certain parts of the code only via a hierarchy #define structure (refer details in the code itself)
+
+
+##Task List
+
+The following is a list of tasks that need to be done, may be done and could possibly be done by myself or with the help of others.  I am not precious about the code and would prefer to see it completed than to sit idle ..
+
+[x] Publish initial code on GitHub
+[ ] More testing (obvious)
+[ ] Harden the handling of the input buttons - debounce, etc
+[ ] Support input via the digital inputs using a matrix
+[ ] Support displays of different resolutions
+
 ##Confessions 
 This is my first GitHub project.  Go easy on me.
-
-I have thoroughly documented the code - well as thoroughly as any developer does - including pulling all the constants out into #define values where appropriate.  
-
-The code details a well defined state machine and shows how to control movement through the various connection screens and then into your own application.
 
