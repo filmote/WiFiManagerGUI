@@ -42,11 +42,11 @@ Hopefully your connection will succeed, otherwise you may see this message ..
 
 The following is a list of tasks that need to be done, may be done and could possibly be done by myself or with the help of others.  I am not precious about the code and would prefer to see it completed than to sit idle ..
 
-[x] Publish initial code on GitHub
-[ ] More testing (obvious)
-[ ] Harden the handling of the input buttons - debounce, etc
-[ ] Support input via the digital inputs using a matrix
-[ ] Support displays of different resolutions
+- [x] Publish initial code on GitHub
+- [ ] More testing (obvious)
+- [ ] Harden the handling of the input buttons - debounce, etc
+- [ ] Support input via the digital inputs using a matrix
+- [ ] Support displays of different resolutions
 
 ##Confessions 
 This is my first GitHub project.  Go easy on me.
