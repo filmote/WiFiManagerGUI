@@ -30,6 +30,13 @@ Hopefully your connection will succeed, otherwise you may see this message ..
 ![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_3_sml.jpg)
 
 
+##My Prototype
+
+I built my prototype using some bits and pieces following the schematic shown below.  The five buttons required to control the screen are connected to the ESP8266 via the ADC input freeing up the digital I/O pins for other tasks.  Resistor 5 is included to form a voltage divider and split the 3.3V into (approximately) 2.3V and 1.0V as the ADC will return a value between 0 and 1023 for voltage inputs between 0V and 1.0V.   Before you ask, I used the resistors I had available and they do not produce a nice spread of values.  One of my tasks is to work out the correct values and alter the constants in the application accordingly.
+
+![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/Schematic.png)
+
+
 ##About the Code
 
 * the code is thoroughly documented the code - well as thoroughly as any developer does
@@ -43,6 +50,7 @@ Hopefully your connection will succeed, otherwise you may see this message ..
 The following is a list of tasks that need to be done, may be done and could possibly be done by myself or with the help of others.  I am not precious about the code and would prefer to see it completed than to sit idle ..
 
 - [x] Publish initial code on GitHub
+- [ ] Determine some appropriate resistor sizes that provide the broadest input values (between 0 - 1023, the resistors I used provide a narrow range between 110 and 330 resulting in some errors).
 - [ ] More testing (obvious)
 - [ ] Harden the handling of the input buttons - debounce, etc
 - [ ] Support input via the digital inputs using a matrix
