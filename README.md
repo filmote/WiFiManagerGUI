@@ -5,7 +5,7 @@ An ESP8266 / OLED display project for connecting to an Access Point using a GUI.
 ##Background
 There are numerous articles, projects and libraries that set the ESP8266 into Access Point mode allowing you to connect and configure an SSID and password before restarting the device in Station mode.  These are great but what if you actually have a display attached to the device?  Why can't the device attempt to connect to previously saved settings and if this fails, allow the user to select an Access Point and enter a pasword using a GUI?
 
-I have used a number of screens on the Arduino but wanted this project to be compatible with the small 128x64 pixel OLED displays that have become very popular and cheap to buy.
+I have used a number of screens on the Arduino but wanted this project to be compatible with the small 128x64 pixel OLED displays that have become very popular and cheap to buy.  I also wanted to keep the input as simple as possible and settled on 5 buttons - 4 for movement (up, down, left and right) and one for selecting options. 
 
 The inspiration for this project came from two separate GitHub projects :
 
@@ -57,6 +57,7 @@ The following is a list of tasks that need to be done, may be done and could pos
 - [ ] Support input via the digital inputs using a matrix
 - [ ] Support displays of different resolutions  
 - [ ] Support I2C and SPI communication to OLED
+- [ ] Support three buttons (left, right and select only) operation
 
 <br /><br />
 ##Confessions 
