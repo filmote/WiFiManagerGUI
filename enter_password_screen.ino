@@ -13,7 +13,7 @@ void renderEnterPassword() {
   
   for (int i = 0; i < PASSWORD_CHARS_PER_ROW; i++) {
     if (password_topRow == password_highlightRow && i == password_highlightCol) { 
-      display.fillRect(PASSWORD_HIGHLIGHT_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_1_TOP, PASSWORD_HIGHLIGHT_SIZE, PASSWORD_HIGHLIGHT_SIZE);
+      display.fillRect(PASSWORD_HIGHLIGHT_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_1_TOP + 1, PASSWORD_HIGHLIGHT_SIZE, PASSWORD_HIGHLIGHT_SIZE);
       display.setColor(BLACK);
     }
     display.drawString(PASSWORD_CHAR_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_1_TOP, String(password_chars[(password_topRow * PASSWORD_CHARS_PER_ROW) + i]));    
@@ -22,7 +22,7 @@ void renderEnterPassword() {
   
   for (int i = 0; i < PASSWORD_CHARS_PER_ROW; i++) {
     if ((password_topRow + 1) == password_highlightRow && i == password_highlightCol) { 
-      display.fillRect(PASSWORD_HIGHLIGHT_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_2_TOP, PASSWORD_HIGHLIGHT_SIZE, PASSWORD_HIGHLIGHT_SIZE);
+      display.fillRect(PASSWORD_HIGHLIGHT_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_2_TOP + 1, PASSWORD_HIGHLIGHT_SIZE, PASSWORD_HIGHLIGHT_SIZE);
       display.setColor(BLACK);
     }
     display.drawString(PASSWORD_CHAR_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_2_TOP, String(password_chars[((password_topRow + 1) * PASSWORD_CHARS_PER_ROW) + i]));    
@@ -32,7 +32,7 @@ void renderEnterPassword() {
   if (password_topRow + 2 == password_rowCount - 1) {
     for (int i = 0; i < password_charsOnLastRow; i++) {
       if ((password_topRow + 2) == password_highlightRow && i == password_highlightCol) { 
-        display.fillRect(PASSWORD_HIGHLIGHT_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_3_TOP, PASSWORD_HIGHLIGHT_SIZE, PASSWORD_HIGHLIGHT_SIZE);
+        display.fillRect(PASSWORD_HIGHLIGHT_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_3_TOP + 1, PASSWORD_HIGHLIGHT_SIZE, PASSWORD_HIGHLIGHT_SIZE);
         display.setColor(BLACK);
       }
       display.drawString(PASSWORD_CHAR_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_3_TOP, String(password_chars[((password_topRow + 2) * PASSWORD_CHARS_PER_ROW) + i]));    
@@ -42,7 +42,7 @@ void renderEnterPassword() {
   else {
     for (int i = 0; i < PASSWORD_CHARS_PER_ROW; i++) {
       if ((password_topRow + 2) == password_highlightRow && i == password_highlightCol) { 
-        display.fillRect(PASSWORD_HIGHLIGHT_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_3_TOP, PASSWORD_HIGHLIGHT_SIZE, PASSWORD_HIGHLIGHT_SIZE);
+        display.fillRect(PASSWORD_HIGHLIGHT_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_3_TOP + 1, PASSWORD_HIGHLIGHT_SIZE, PASSWORD_HIGHLIGHT_SIZE);
         display.setColor(BLACK);
       }
       display.drawString(PASSWORD_CHAR_LEFT + (i * PASSWORD_CHAR_SPACING), PASSWORD_ROW_3_TOP, String(password_chars[((password_topRow + 2) * PASSWORD_CHARS_PER_ROW) + i]));    

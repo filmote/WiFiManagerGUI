@@ -299,9 +299,9 @@ String accessPoints[ACCESSPOINT_MAX];
 //
 
 #define PASSWORD_ROW_1_TOP                          15
-#define PASSWORD_ROW_2_TOP                          28
+#define PASSWORD_ROW_2_TOP                          27
 #define PASSWORD_ROW_3_TOP                          39
-#define PASSWORD_HIGHLIGHT_SIZE                     11
+#define PASSWORD_HIGHLIGHT_SIZE                     10
 #define PASSWORD_HIGHLIGHT_LEFT                     1
 #define PASSWORD_CHAR_SPACING                       12
 #define PASSWORD_CHAR_LEFT                          (PASSWORD_HIGHLIGHT_LEFT + 1)
