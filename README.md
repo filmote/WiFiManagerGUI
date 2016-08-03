@@ -31,7 +31,11 @@ Enter a Password ..
 
 ![Enter a Password](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_2_thumb.jpg)
 
-Hopefully your connection will succeed, otherwise you may see this message ..
+Hopefully your connection will succeed ..
+
+![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_5_thumb.jpg)  
+
+Otherwise you may see this message ..
 
 ![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_3_thumb.jpg)  
 
