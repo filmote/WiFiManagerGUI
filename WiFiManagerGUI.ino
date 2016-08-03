@@ -159,14 +159,14 @@ int status = STATUS_ACCESSPOINTS_INIT;
 
 #define DEBUG_ACCESSPOINTS
 #define DEBUG_ACCESSPOINTS_SENSOR_VALUE
-#define DEBUG_ACCESSPOINTS_SENSOR_VALUE_THRESHOLD   700
+#define DEBUG_ACCESSPOINTS_SENSOR_VALUE_THRESHOLD   600
 #define DEBUG_ACCESSPOINTS_VALUES_INIT
 #define DEBUG_ACCESSPOINTS_VALUES_FINAL
 #undef  DEBUG_ACCESSPOINTS__NO_AP_FOUND__TEST_CASE
 
 #define DEBUG_PASSWORD
 #define DEBUG_PASSWORD_SENSOR_VALUE
-#define DEBUG_PASSWORD_SENSOR_VALUE_THRESHOLD       700
+#define DEBUG_PASSWORD_SENSOR_VALUE_THRESHOLD       DEBUG_ACCESSPOINTS_SENSOR_VALUE_THRESHOLD
 #define DEBUG_PASSWORD_VALUES_INIT
 #define DEBUG_PASSWORD_VALUES_FINAL
 
@@ -174,7 +174,7 @@ int status = STATUS_ACCESSPOINTS_INIT;
 #define DEBUG_CONNECT_VALUES_INIT
 #define DEBUG_CONNECT_VALUES_FINAL
 #define DEBUG_CONNECT_SENSOR_VALUE
-#define DEBUG_CONNECT_SENSOR_VALUE_THRESHOLD        700
+#define DEBUG_CONNECT_SENSOR_VALUE_THRESHOLD        DEBUG_ACCESSPOINTS_SENSOR_VALUE_THRESHOLD
 
 
 // -- EEPROM Constants -----------------------------------------------------------------------------------------------------
@@ -221,12 +221,12 @@ int status = STATUS_ACCESSPOINTS_INIT;
 //  if (sensorValue > (BUTTON_5 - BUTTON_VARIANCE) && sensorValue < (BUTTON_5 + BUTTON_VARIANCE))     { status = loop_access_points_button5_Click(); }
 //
 
-#define BUTTON_1                                    110
-#define BUTTON_2                                    185
-#define BUTTON_3                                    245
-#define BUTTON_4                                    290
-#define BUTTON_5                                    330
-#define BUTTON_VARIANCE                             25
+#define BUTTON_1                                    105
+#define BUTTON_2                                    175
+#define BUTTON_3                                    225
+#define BUTTON_4                                    270
+#define BUTTON_5                                    310
+#define BUTTON_VARIANCE                             20
 
 
 // -- Scroll Bar Rendering ------------------------------------------------------------------------------------------------
@@ -348,6 +348,8 @@ String accessPoints[ACCESSPOINT_MAX];
 #define PASSWORD_MENU_DIVIDERS_TOP                  (PASSWORD_MENU_BACK_HIGHLIGHT_TOP)
 #define PASSWORD_MENU_DIVIDERS_HEIGHT               (PASSWORD_MENU_BACK_HIGHLIGHT_HEIGHT)
 
+#define PASSWORD_HIDE_CHARACTERS                    
+
 char password_chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890`~!@#$%^&*()-_=+[]{};:'<>,./?";
 
 int password_topRow = 0;
@@ -412,6 +414,7 @@ int connect_highlightCol = 0;
 int wifiStatus = 0;
 String ssid = "";
 String password = "";
+String password_display = "";                     // With all characters bar the last replaced with *
 int sensorValue = 0;
 
 bool hasAPNameBeenVerified = false;               // Has the AP name been verified (ie. selected from a list) ?
@@ -499,7 +502,7 @@ void setup() {
   delay(100);
   display.init();
   display.displayOn();
-  
+
 }
 
 

@@ -3,7 +3,7 @@
 
 int init_enter_password() {
 
-  #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(DEBUG_DEBUG_PASSWORD_VALUES_INIT)
+  #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(DEBUG_PASSWORD_VALUES_INIT)
     Serial.println("  ");
     Serial.println("init_enter_password()");
   #endif
@@ -55,7 +55,7 @@ int loop_enter_password() {
 
 int loop_enter_password_button1_Click() {
 
-  #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(DEBUG_DEBUG_PASSWORD_VALUES_INIT)
+  #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(DEBUG_PASSWORD_VALUES_INIT)
     Serial.println("  ");
     Serial.println("loop_enter_password_button1_Click():");
     Serial.print("  password_highlightRow = ");
@@ -244,7 +244,7 @@ int loop_enter_password_button3_Click() {
 
 int loop_enter_password_button4_Click() {
 
-  #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(DEBUG_DEBUG_PASSWORD_VALUES_INIT)
+  #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(DEBUG_PASSWORD_VALUES_INIT)
     Serial.println("  ");
     Serial.println("loop_enter_password_button4_Click():");
     Serial.print("  password_highlightRow = ");

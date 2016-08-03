@@ -1,11 +1,88 @@
 void renderEnterPassword() {
+
+  #if defined(DEBUG) && defined(DEBUG_PASSWORD)
+    Serial.println("");
+    Serial.println("renderEnterPassword()");
+  #endif
+
+  // Substitute characters for * in the password? 
+  
+  #if defined(PASSWORD_HIDE_CHARACTERS)
+  
+    password_display = "";
+
+    #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(PASSWORD_HIDE_CHARACTERS)
+        Serial.print("  Clear text password: ");
+        Serial.println(password);
+     #endif
+
+    
+    for (int i = 0; i < password.length() - 1; i++) {
+
+      password_display = password_display + "*";
+      
+        #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(PASSWORD_HIDE_CHARACTERS)
+          Serial.print("  ");
+          Serial.println(password_display);
+        #endif
+        
+    }
+
+    if (password.length() > 0) {
+      
+      password_display = password_display + password.substring(password.length() - 1);
+      
+      #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(PASSWORD_HIDE_CHARACTERS)
+        Serial.print("  ");
+        Serial.println(password_display);
+      #endif
+      
+    }
+
+  #else
+
+    password_display = password;
+
+  #endif
+
+
+  // Is the password too long to display?  If so remove the first character fromthe password until it fits.  
+  // Final password will be rendered with '..' in front to indicate that there is more letters to the left ..
+
+  if (display.getStringWidth(password_display) + 4 > PASSWORD_KEY_BORDER_WIDTH) {
+
+    #if defined(DEBUG) && defined(DEBUG_PASSWORD)
+      Serial.print("  Password longer than ");
+      Serial.print(display.getStringWidth(password_display));
+      Serial.println("  characters.");
+    #endif
+    
+    while (display.getStringWidth("..") + display.getStringWidth(password_display) + 4 > PASSWORD_KEY_BORDER_WIDTH) {
+
+      password_display = password_display.substring(1);
+      
+      #if defined(DEBUG) && defined(DEBUG_PASSWORD)
+        Serial.print("  ");
+        Serial.println(password_display);
+      #endif
+
+    }
+      
+    password_display = ".." + password_display;
+      
+    #if defined(DEBUG) && defined(DEBUG_PASSWORD)
+      Serial.print("  ");
+      Serial.println(password_display);
+    #endif
+    
+  }
   
   display.clear();
   display.setFont(ArialMT_Plain_10);
   display.setTextAlignment(TEXT_ALIGN_LEFT);
 
-  display.drawString(PASSWORD_KEY_LABEL_LEFT, PASSWORD_KEY_LABEL_TOP, "Key : ");    
-  display.drawString(36, 0, password);    
+  display.drawString(PASSWORD_KEY_LABEL_LEFT, PASSWORD_KEY_LABEL_TOP, "Key : ");   
+  display.drawString(36, 0, password_display);  
   display.drawRect(PASSWORD_KEY_BORDER_LEFT, PASSWORD_KEY_BORDER_TOP, PASSWORD_KEY_BORDER_WIDTH, PASSWORD_KEY_BORDER_HEIGHT);
 
 
