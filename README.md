@@ -1,6 +1,6 @@
 ##WiFiManagerGUI
 An ESP8266 / OLED display project for connecting to an Access Point using a GUI.  
-<br /><br />
+<br />
 
 ##Background
 There are numerous articles, projects and libraries that set the ESP8266 into Access Point mode allowing you to connect and configure an SSID and password before restarting the device in Station mode.  These are great but what if you actually have a display attached to the device?  Why can't the device attempt to connect to previously saved settings and if this fails, allow the user to select an Access Point and enter a pasword using a GUI?
@@ -11,13 +11,13 @@ The inspiration for this project came from two separate GitHub projects :
 
 * [Tzapu](https://github.com/tzapu) for his amazing [WifiManager](https://github.com/tzapu/WiFiManager) project and 
 * [Squix78](https://github.com/squix78) for his [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library for driving these little OLED displays.  
-<br /><br />
+<br />
 
 ##Dependencies
 
 * [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library __Compatible with version 2.x only.__ 
 An issue in version 3.x prevents the black text from being rendered on a white background.  This has been tracked as a bug in the latest version and will be fixed soon (hopefully).  This project will operate with version 3.x however the rendering of the highlights suffers.
-<br /><br />
+<br />
 
 ##In Operation
 
@@ -43,14 +43,14 @@ If the connection fails the following message is displayed. The access point or 
 
 ![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_3_thumb.jpg)  
 
-<br /><br />
+<br />
 
 ##My Prototype
 
 I built my prototype using some bits and pieces following the schematic shown below.  The five buttons required to control the screen are connected to the ESP8266 via the ADC input freeing up the digital I/O pins for other tasks.  Resistor 5 is included to form a voltage divider and split the 3.3V into (approximately) 2.3V and 1.0V as the ADC will return a value between 0 and 1023 for voltage inputs between 0V and 1.0V.   Before you ask, I used the resistors I had available and they do not produce a nice spread of values.  One of my tasks is to work out the correct values and alter the constants in the application accordingly.
 
 ![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/Schematic.png)  
-<br /><br />
+<br />
 
 ##About the Code
 
@@ -58,7 +58,7 @@ I built my prototype using some bits and pieces following the schematic shown be
 * all constants have been pulled out into #define values where appropriate
 * the code details a well defined state machine and shows how to control movement through the various connection screens and then into your own application (refer details in the code itself)
 * the code includes detailed debugging which can be turned on or off in its entirety or in certain parts of the code only via a hierarchy #define structure (refer details in the code itself)  
-<br /><br />
+<br />
 
 ##Task List
 
@@ -73,7 +73,7 @@ The following is a list of tasks that need to be done, may be done and could pos
 - [ ] Support I2C and SPI communication to OLED
 - [ ] Support three buttons (left, right and select only) operation
 
-<br /><br />
+<br />
 ##Confessions 
 This is my first GitHub project.  Go easy on me.
 
