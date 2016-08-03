@@ -15,7 +15,7 @@ The inspiration for this project came from two separate GitHub projects :
 
 ##Dependencies
 
-* [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library __Compatible with version 2.x only.__ 
+* [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library. __Compatible with version 2.x only.__ 
 An issue in version 3.x prevents the black text from being rendered on a white background.  This has been tracked as a bug in the latest version and will be fixed soon (hopefully).  This project will operate with version 3.x however the rendering of the highlights suffers.
 <br />
 
