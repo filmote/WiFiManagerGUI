@@ -9,8 +9,8 @@ I have used a number of screens on the Arduino but wanted this project to be com
 
 The inspiration for this project came from two separate GitHub projects :
 
-* @tzapu for his amazing [WifiManager](https://github.com/tzapu/WiFiManager) project and 
-* @squix78 for his [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library for driving these little OLED displays.  
+* @github/tzapu for his amazing [WifiManager](https://github.com/tzapu/WiFiManager) project and 
+* @github/squix78 for his [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library for driving these little OLED displays.  
 <br /><br />
 
 ##Dependencies
