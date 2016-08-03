@@ -23,19 +23,19 @@ An issue in version 3.x prevents the black text from being rendered on a white b
 
 When the ESP8266 first starts it will attempt to connect to any existing SSID stored in the EEPROM using the credentials it retrieves.  If this connection fails, it will then prompt the user to select an Access Point, enter a password and then connect to the WiFi.  If a successful connection is made, control passes to your application otherwise the user is prompted to confirm the Access Point and / or password. 
 
-Select an Access Point ..
+__Select an Access Point__: access points that can be detected in the area are displayed in a list - these are sorted by signal strength / RSSI (received signal strength indicator) typically placing the one the user wants at the top of the list. Failing this, the user can scroll up or down through the list to find the correct one and the click the Select button. Alternatively, they can refresh the list by scrolling to the Refresh button at the bottom of the screen and selecting it.
 
 ![Select an Access Point](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_1_thumb.jpg)
 
-Enter a Password ..
+__Enter a Password__: The Wifi password or key can be entered by selecting the characters from a 'keyboard'. Again the user can scroll up, down, left and right to highlight the required character and click the Select button. Three menu options across the bottom of the screen allow the user to return to the Access Point selection screen, delete a character erroneously entered in the password or attempt to connect with the supplied password.
 
 ![Enter a Password](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_2_thumb.jpg)
 
-Hopefully your connection will succeed ..
+__Connect to the Wifi Access Point__: Hopefully the connection will succeed and the assigned IP address will be echoed back for reference. The screen will stay on for three or four seconds before turning off to save power. 
 
 ![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_5_thumb.jpg)  
 
-Otherwise you may see this message ..
+__Connect to the Wifi Access Point__: If the connection fails the following message is displayed. The access point or password can be changed and the connection re-attempted.
 
 ![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_3_thumb.jpg)  
 
