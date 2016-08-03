@@ -1,0 +1,21 @@
+{
+  "name": "WiFiManagerGUI",
+  "version": "0.5",
+  "keywords": "ssd1306, oled, display, i2c, wifi, wifimanager",
+  "description": "An ESP8266 / OLED display project for connecting to an Access Point using a GUI",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/squix78/esp8266-oled-ssd1306.git"
+  },
+  "authors":
+  [
+    {
+        "name": "Simon Holmes",
+        "email": "simon@bloggingadeadhorse.com",
+        "url": "http://www.bloggingadeadhorse.com/programming_esp8266_2.php"
+    }
+  ],
+  "frameworks": "arduino",
+  "platforms": "espressif"
+}

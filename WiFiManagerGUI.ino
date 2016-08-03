@@ -259,8 +259,8 @@ int status = STATUS_ACCESSPOINTS_INIT;
 //
 
 #define ACCESSPOINT_HIGHLIGHT_ROW_LEFT              0
-#define ACCESSPOINT_HIGHLIGHT_ROW_TOP               15
-#define ACCESSPOINT_HIGHLIGHT_ROW_WIDTH             131
+#define ACCESSPOINT_HIGHLIGHT_ROW_TOP               16
+#define ACCESSPOINT_HIGHLIGHT_ROW_WIDTH             127
 #define ACCESSPOINT_HIGHLIGHT_ROW_TEXT_TOP          15
 #define ACCESSPOINT_ROW_HEIGHT                      11
 #define ACCESSPOINT_ROW_MENU                        -1

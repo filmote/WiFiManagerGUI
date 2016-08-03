@@ -13,6 +13,10 @@ The inspiration for this project came from two separate GitHub projects :
 * @squix78 for his [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library for driving these little OLED displays.  
 <br /><br />
 
+##Dependencies
+
+* [esp8266-oled-ssd1306](https://github.com/squix78/esp8266-oled-ssd1306) library ** Compatible with version 2.x only. ** An issue in version 3.x prevents the black text from being rendered on a white background.  This has been tracked as a bug in the latest version and will be fixed soon (hopefully!).  This project will operate with version 3.x however the rendering of the highlights suffers.
+
 ##In Operation
 
 When the ESP8266 first starts it will attempt to connect to any existing SSID stored in the EEPROM using the credentials it retrieves.  If this connection fails, it will then prompt the user to select an Access Point, enter a password and then connect to the WiFi.  If a successful connection is made, control passes to your application otherwise the user is prompted to confirm the Access Point and / or password. 
