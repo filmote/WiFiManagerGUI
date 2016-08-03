@@ -25,15 +25,15 @@ When the ESP8266 first starts it will attempt to connect to any existing SSID st
 
 Select an Access Point ..
 
-![Select an Access Point](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_1_sml.jpg)
+![Select an Access Point](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_1_thumb.jpg)
 
 Enter a Password ..
 
-![Enter a Password](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_2_sml.jpg)
+![Enter a Password](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_2_thumb.jpg)
 
 Hopefully your connection will succeed, otherwise you may see this message ..
 
-![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_3_sml.jpg)  
+![Connect](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_3_thumb.jpg)  
 
 <br /><br />
 
