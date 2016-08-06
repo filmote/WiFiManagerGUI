@@ -3,7 +3,7 @@
 
 int init_connect() {
 
-  connect_line1_text = String("Connecting to " + String(ssid));
+  connect_line1_text = String("Connecting to " + truncateString(String(ssid), CONNECT_SSID_DISPLAY_TRUNCATE, false));
   connect_line2_text = String("Obtaining IP address ..");
   connect_line3_text = "";
   connect_line4_text = "";

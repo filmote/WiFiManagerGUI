@@ -1,9 +1,12 @@
 void renderEnterPassword() {
 
+  String password_display = "";                     // With all characters bar the last replaced with *
+
   #if defined(DEBUG) && defined(DEBUG_PASSWORD)
     Serial.println("");
     Serial.println("renderEnterPassword()");
   #endif
+
 
   // Substitute characters for * in the password? 
   
@@ -51,30 +54,8 @@ void renderEnterPassword() {
 
   if (display.getStringWidth(password_display) + 4 > PASSWORD_KEY_BORDER_WIDTH) {
 
-    #if defined(DEBUG) && defined(DEBUG_PASSWORD)
-      Serial.print("  Password longer than ");
-      Serial.print(display.getStringWidth(password_display));
-      Serial.println("  characters.");
-    #endif
-    
-    while (display.getStringWidth("..") + display.getStringWidth(password_display) + 4 > PASSWORD_KEY_BORDER_WIDTH) {
+    password_display = truncateString(password_display, (PASSWORD_KEY_BORDER_WIDTH - 4), true);
 
-      password_display = password_display.substring(1);
-      
-      #if defined(DEBUG) && defined(DEBUG_PASSWORD)
-        Serial.print("  ");
-        Serial.println(password_display);
-      #endif
-
-    }
-      
-    password_display = ".." + password_display;
-      
-    #if defined(DEBUG) && defined(DEBUG_PASSWORD)
-      Serial.print("  ");
-      Serial.println(password_display);
-    #endif
-    
   }
   
   display.clear();

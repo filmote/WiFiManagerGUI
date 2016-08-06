@@ -127,11 +127,72 @@ void drawScrollBar(int itemCount, int itemsVisible, int topRow) {
 
 }
 
+
 // -------------------------------------------------------------------------------------------------------
 // Draw a horizontal line across entire screen ..
 
 void drawHorizontalLine(int top) {
 
   display.drawRect(0, top, 127, 0);
+  
+}
+
+
+// -------------------------------------------------------------------------------------------------------
+// Truncate a string to Xpx in width by removing characters from the left or the right.  The final string 
+// is returned with an ellipses (..) pre-pended or appended to the shortened string.
+
+String truncateString(String longString, int width, bool leftTruncate) {
+
+  String shortString = longString;
+       
+  #if defined(DEBUG) 
+    Serial.println("  ");
+    Serial.println("truncateString()");
+    Serial.println("  Orig string = " + longString);
+    Serial.print("  Orig width = ");
+    Serial.println(display.getStringWidth(longString));
+    Serial.print("  Truncate to = ");
+    Serial.println(width);
+  #endif
+
+  if (display.getStringWidth(longString) > width) {
+    
+    while (display.getStringWidth("..") + display.getStringWidth(shortString) > width) {
+
+      if (leftTruncate) {
+        shortString = shortString.substring(1);
+      }
+      else {
+        shortString = shortString.substring(0, shortString.length() - 2);
+      }
+      
+      #if defined(DEBUG) 
+        Serial.print("  ");
+        Serial.println(shortString);
+      #endif
+
+    }
+      
+    if (leftTruncate) {
+      shortString = ".." + shortString;
+    }
+    else {
+      shortString = shortString + "..";
+    }
+      
+    #if defined(DEBUG) && defined(DEBUG_PASSWORD)
+      Serial.print("  ");
+      Serial.println(shortString);
+    #endif
+
+    return shortString;
+    
+  }
+  else {
+
+    return longString;
+    
+  }
   
 }

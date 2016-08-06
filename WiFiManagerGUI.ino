@@ -393,6 +393,7 @@ int password_highlightCol = 0;
 
 #define CONNECT_RETRY_AUTOMATICALLY                             // Should the application re-attempt to connect if the signal is lost?
 #define CONNECT_RETRY_ATTEMPTS                      3
+#define CONNECT_SSID_DISPLAY_TRUNCATE               60          // When rendering the SSID on the connect screen, over-length SSIDs are truncate to this width
 
 String connect_line1_text = "";
 String connect_line2_text = "";
@@ -414,7 +415,6 @@ int connect_highlightCol = 0;
 int wifiStatus = 0;
 String ssid = "";
 String password = "";
-String password_display = "";                     // With all characters bar the last replaced with *
 int sensorValue = 0;
 
 bool hasAPNameBeenVerified = false;               // Has the AP name been verified (ie. selected from a list) ?
