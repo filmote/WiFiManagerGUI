@@ -125,15 +125,47 @@ int loop_connect() {
   while (status == STATUS_CONNECT_LOOP) {
 
     yield();
-    sensorValue = analogRead(A0);
 
-    #if defined(DEBUG) && defined(DEBUG_CONNECT) && defined(DEBUG_CONNECT_SENSOR_VALUE)
-      if (sensorValue < DEBUG_CONNECT_SENSOR_VALUE_THRESHOLD) { Serial.println(sensorValue); }
+    #if defined(ADC_INPUT)
+
+      sensorValue = analogRead(A0);
+
+      #if defined(DEBUG) && defined(DEBUG_CONNECT) && defined(DEBUG_CONNECT_SENSOR_VALUE)
+        if (sensorValue < DEBUG_CONNECT_SENSOR_VALUE_THRESHOLD) { Serial.println(sensorValue); }
+      #endif
+      
+      if (sensorValue > (BUTTON_1 - BUTTON_VARIANCE) && sensorValue < (BUTTON_1 + BUTTON_VARIANCE))     { status = loop_connect_button1_Click(); }     // Left
+      if (sensorValue > (BUTTON_2 - BUTTON_VARIANCE) && sensorValue < (BUTTON_2 + BUTTON_VARIANCE))     { status = loop_connect_button2_Click(); }     // Right
+      if (sensorValue > (BUTTON_5 - BUTTON_VARIANCE) && sensorValue < (BUTTON_5 + BUTTON_VARIANCE))     { status = loop_connect_button5_Click(); }     // Enter
+
     #endif
+        
+    #if defined(KY040_INPUT)
     
-    if (sensorValue > (BUTTON_1 - BUTTON_VARIANCE) && sensorValue < (BUTTON_1 + BUTTON_VARIANCE))     { status = loop_connect_button1_Click(); }
-    if (sensorValue > (BUTTON_2 - BUTTON_VARIANCE) && sensorValue < (BUTTON_2 + BUTTON_VARIANCE))     { status = loop_connect_button2_Click(); }
-    if (sensorValue > (BUTTON_5 - BUTTON_VARIANCE) && sensorValue < (BUTTON_5 + BUTTON_VARIANCE))     { status = loop_connect_button5_Click(); }
+      long newPosition = myEnc.read();
+      if (abs(newPosition - oldPosition) >= KY040_MINIMUM_RESOLUTION) {
+
+        if (newPosition > oldPosition)                                                                  { status = loop_connect_button1_Click(); }     // Left     
+        if (newPosition < oldPosition)                                                                  { status = loop_connect_button2_Click(); }     // Right
+    
+        oldPosition = newPosition;
+
+      }
+
+      // Software debounce of button press ..
+      
+      if (isButtonPressed && millis() - lastUpdateMillis > 50) {
+
+        isButtonPressed = false;
+        lastUpdateMillis = millis();                                                                      status = loop_connect_button5_Click();       // Enter
+      
+        myEnc.write(0);    
+        newPosition = 0;
+        oldPosition = 0;
+
+      }
+
+    #endif
 
     yield();
     
@@ -154,16 +186,37 @@ int loop_connect_button1_Click() {
     Serial.println("  ");
     Serial.println("loop_connect_button1_Click():");
   #endif
-  
-  if (connect_highlightCol > CONNECT_MENU_OPTION_BACK) {
 
-    connect_highlightCol--;
-    
-    renderConnect(wifiStatus == WL_CONNECTED);
-    delay(100);
-    
-  }
+  #if defined(ADC_INPUT)
   
+    if (connect_highlightCol > CONNECT_MENU_OPTION_BACK) {
+  
+      connect_highlightCol--;
+      renderConnect(true);
+      delay(100);
+      
+    }
+
+  #endif
+  
+  #if defined(KY040_INPUT)
+  
+    if (connect_highlightCol > CONNECT_MENU_OPTION_BACK) {
+  
+      connect_highlightCol--;
+      
+    }
+    else {
+
+      connect_highlightCol = CONNECT_MENU_OPTION_RETRY;
+      
+    }
+
+    renderConnect(true);
+    delay(100);
+
+  #endif
+    
   #if defined(DEBUG) && defined(DEBUG_CONNECT) && defined(DEBUG_CONNECT_VALUES_FINAL)
     Serial.println("  -- exit values");
     Serial.println("  return = STATUS_CONNECT_LOOP");
@@ -184,14 +237,36 @@ int loop_connect_button2_Click() {
     Serial.println("  ");
     Serial.println("loop_connect_button2_Click():");
   #endif
-  
-  if (connect_highlightCol < CONNECT_MENU_OPTION_RETRY) {
 
-    connect_highlightCol++;    
-    renderConnect(wifiStatus == WL_CONNECTED);
-    delay(100);
+  #if defined(ADC_INPUT)
     
-  }
+    if (connect_highlightCol < CONNECT_MENU_OPTION_RETRY) {
+  
+      connect_highlightCol++;    
+      renderConnect(true);
+      delay(100);
+      
+    }
+
+  #endif
+ 
+  #if defined(KY040_INPUT)
+  
+    if (connect_highlightCol < CONNECT_MENU_OPTION_RETRY) {
+  
+      connect_highlightCol++;    
+      
+    }
+    else {
+
+      connect_highlightCol = CONNECT_MENU_OPTION_BACK;
+            
+    }
+
+    renderConnect(true);
+    delay(100);
+
+  #endif
 
   #if defined(DEBUG) && defined(DEBUG_CONNECT) && defined(DEBUG_CONNECT_VALUES_FINAL)
     Serial.println("  -- exit values");

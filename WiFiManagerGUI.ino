@@ -1,8 +1,21 @@
+// -- Input Mode -------------------------------------------------------------------------------------------------------
+//
+// Select input method between 5 buttons laddered of the ADC pin or a KY-040 (or similar) rotary encoder.  This must be
+// declared first as there is no need to include the Encoder.h library.  
+//
+
+#undef  ADC_INPUT
+#define KY040_INPUT
+
 #include <ESP8266WiFi.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <SSD1306.h>
 #include <EEPROM.h>
+
+#if defined(KY040_INPUT)
+  #include <Encoder.h>
+#endif
 
 #define WIFI_PORT                                   301
 
@@ -154,8 +167,8 @@ int status = STATUS_ACCESSPOINTS_INIT;
 #define DEBUG
 #define DEBUG_EEPROM
 #define DEBUG_EEPROM_READ
-#undef  DEBUG_EEPROM_CLEAR_SETTINGS                         // Clear the EEPROM settings
-#define DEBUG_EEPROM_WRITE_SETTINGS                         // Write test data into the EEPROM
+#define DEBUG_EEPROM_CLEAR_SETTINGS                         // Clear the EEPROM settings
+#undef  DEBUG_EEPROM_WRITE_SETTINGS                         // Write test data into the EEPROM
 
 #define DEBUG_ACCESSPOINTS
 #define DEBUG_ACCESSPOINTS_SENSOR_VALUE
@@ -206,6 +219,8 @@ int status = STATUS_ACCESSPOINTS_INIT;
 
 // -- Button ADC Values ----------------------------------------------------------------------------------------------------
 //
+// Note: The input method (ADC or KY-040) is defined at the top of the sketch.
+//
 // To free up the digital input and output pins, the sketch uses five resistors connected in series to the ADC input.  Five 
 // normally-open switches are wired between the resistors and connect the ADC input to ground when pressed between - resulting 
 // in five different analogue values.  The values I have entered below work for the resistors I have used in my prototype 
@@ -221,12 +236,33 @@ int status = STATUS_ACCESSPOINTS_INIT;
 //  if (sensorValue > (BUTTON_5 - BUTTON_VARIANCE) && sensorValue < (BUTTON_5 + BUTTON_VARIANCE))     { status = loop_access_points_button5_Click(); }
 //
 
-#define BUTTON_1                                    105
-#define BUTTON_2                                    175
-#define BUTTON_3                                    225
-#define BUTTON_4                                    270
-#define BUTTON_5                                    310
-#define BUTTON_VARIANCE                             20
+#if defined(ADC_INPUT)
+
+  #define BUTTON_1                                  105
+  #define BUTTON_2                                  175
+  #define BUTTON_3                                  225
+  #define BUTTON_4                                  270
+  #define BUTTON_5                                  310
+  #define BUTTON_VARIANCE                           20
+
+  int sensorValue = 0;
+
+#endif
+
+
+// -- KY-040 Rotary Encoder Values -----------------------------------------------------------------------------------------
+//
+// Note: The input method (ADC or KY-040) is defined at the top of the sketch.
+//
+
+#if defined(KY040_INPUT)
+
+  #define KY040_CLK_INPUT                           D5 
+  #define KY040_DT_INPUT                            D6
+  #define KY040_SW_INPUT                            D7
+  #define KY040_MINIMUM_RESOLUTION                  4
+
+#endif
 
 
 // -- Scroll Bar Rendering ------------------------------------------------------------------------------------------------
@@ -415,7 +451,6 @@ int connect_highlightCol = 0;
 int wifiStatus = 0;
 String ssid = "";
 String password = "";
-int sensorValue = 0;
 
 bool hasAPNameBeenVerified = false;               // Has the AP name been verified (ie. selected from a list) ?
 
@@ -424,6 +459,23 @@ bool hasAPNameBeenVerified = false;               // Has the AP name been verifi
 SSD1306          display(OLED_ADDR, OLED_SDA, OLED_SDC);    // For I2C
 
 WiFiServer server(WIFI_PORT); 
+
+
+// Declare KY040 interrupt handler and state variables ..
+  
+#if defined(KY040_INPUT)
+
+  Encoder myEnc(KY040_CLK_INPUT, KY040_DT_INPUT);
+  
+  long oldPosition  = 0;
+  boolean isButtonPressed = false;
+  long lastUpdateMillis = 0;
+
+  void handleKey() {
+    isButtonPressed = true;  
+  }
+
+#endif
 
 
 // -- Initialization -----------------------------------------------------------------------------------------------
@@ -446,6 +498,14 @@ void setup() {
   #if defined(DEBUG)
     Serial.println();
     Serial.println("setup()");
+  #endif
+
+
+  // Initialise the KY-040 encoder if being used ..
+  
+  #if defined(KY040_INPUT)
+    pinMode(KY040_SW_INPUT, INPUT_PULLUP);
+    attachInterrupt(KY040_SW_INPUT, handleKey, RISING);
   #endif
 
 

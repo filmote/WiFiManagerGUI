@@ -30,17 +30,50 @@ int loop_enter_password() {
     yield();
     delay(100);
     
-    sensorValue = analogRead(A0);
+    #if defined(ADC_INPUT)
     
-    #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(DEBUG_PASSWORD_SENSOR_VALUE)
-      if (sensorValue < DEBUG_PASSWORD_SENSOR_VALUE_THRESHOLD) { Serial.println(sensorValue); }
+      sensorValue = analogRead(A0);
+    
+      #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(DEBUG_PASSWORD_SENSOR_VALUE)
+        if (sensorValue < DEBUG_PASSWORD_SENSOR_VALUE_THRESHOLD) { Serial.println(sensorValue); }
+      #endif
+    
+      if (sensorValue > (BUTTON_1 - BUTTON_VARIANCE) && sensorValue < (BUTTON_1 + BUTTON_VARIANCE))     { status = loop_enter_password_button1_Click(); }     // Left 
+      if (sensorValue > (BUTTON_2 - BUTTON_VARIANCE) && sensorValue < (BUTTON_2 + BUTTON_VARIANCE))     { status = loop_enter_password_button2_Click(); }     // Right
+      if (sensorValue > (BUTTON_3 - BUTTON_VARIANCE) && sensorValue < (BUTTON_3 + BUTTON_VARIANCE))     { status = loop_enter_password_button3_Click(); }     // Up
+      if (sensorValue > (BUTTON_4 - BUTTON_VARIANCE) && sensorValue < (BUTTON_4 + BUTTON_VARIANCE))     { status = loop_enter_password_button4_Click(); }     // Down
+      if (sensorValue > (BUTTON_5 - BUTTON_VARIANCE) && sensorValue < (BUTTON_5 + BUTTON_VARIANCE))     { status = loop_enter_password_button5_Click(); }     // Enter
+
     #endif
     
-    if (sensorValue > (BUTTON_1 - BUTTON_VARIANCE) && sensorValue < (BUTTON_1 + BUTTON_VARIANCE))     { status = loop_enter_password_button1_Click(); }     // Left 
-    if (sensorValue > (BUTTON_2 - BUTTON_VARIANCE) && sensorValue < (BUTTON_2 + BUTTON_VARIANCE))     { status = loop_enter_password_button2_Click(); }     // Right
-    if (sensorValue > (BUTTON_3 - BUTTON_VARIANCE) && sensorValue < (BUTTON_3 + BUTTON_VARIANCE))     { status = loop_enter_password_button3_Click(); }     // Up
-    if (sensorValue > (BUTTON_4 - BUTTON_VARIANCE) && sensorValue < (BUTTON_4 + BUTTON_VARIANCE))     { status = loop_enter_password_button4_Click(); }     // Down
-    if (sensorValue > (BUTTON_5 - BUTTON_VARIANCE) && sensorValue < (BUTTON_5 + BUTTON_VARIANCE))     { status = loop_enter_password_button5_Click(); }     // Enter
+    #if defined(KY040_INPUT)
+    
+      long newPosition = myEnc.read();
+      if (abs(newPosition - oldPosition) >= KY040_MINIMUM_RESOLUTION) {
+
+        if (newPosition > oldPosition)                                                                  { status = loop_enter_password_button1_Click(); }     // Left     
+        if (newPosition < oldPosition)                                                                  { status = loop_enter_password_button2_Click(); }     // Right
+    
+        oldPosition = newPosition;
+
+      }
+
+      // Software debounce of button press ..
+      
+      if (isButtonPressed && millis() - lastUpdateMillis > 50) {
+
+        isButtonPressed = false;
+        lastUpdateMillis = millis();                                                                      status = loop_enter_password_button5_Click();       // Enter
+      
+        myEnc.write(0);    
+        newPosition = 0;
+        oldPosition = 0;
+
+      }
+
+    #endif
+    
+    yield();
     
   }
 
@@ -67,13 +100,53 @@ int loop_enter_password_button1_Click() {
     Serial.print("  password_rowCount = ");
     Serial.println(password_rowCount);
   #endif
+
+  #if defined(ADC_INPUT)
   
-  if (password_highlightCol > 0) { 
-
-    password_highlightCol--; 
+    if (password_highlightCol > 0) { 
+      password_highlightCol--; 
+    }
     
-  }
+  #endif
 
+  #if defined(KY040_INPUT)
+
+    if (password_highlightCol > 0) { 
+      password_highlightCol--; 
+    }
+    else {
+
+      if (password_highlightRow == PASSWORD_MENU_ROW) { 
+
+        password_highlightCol = password_charsOnLastRow - 1;
+        password_highlightRow = password_rowCount - 1; 
+        password_topRow = (password_rowCount > PASSWORD_ROWS_VISIBLE ? password_highlightRow - PASSWORD_ROWS_VISIBLE + 1 : 0);
+      
+      }
+      else if (password_highlightRow == 0) {
+        
+        password_highlightRow = PASSWORD_MENU_ROW; 
+        password_highlightCol = PASSWORD_MENU_OPTION_CONNECT;
+        accessPoint_topRow = 0;
+      
+      }
+      else if (password_highlightRow > 0) {
+        
+        password_highlightRow--; 
+        password_highlightCol = PASSWORD_CHARS_PER_ROW - 1;
+  
+        if (password_highlightRow > 0) {
+
+          password_topRow = password_highlightRow - 1;
+    
+        } 
+      
+      }
+      
+    }
+
+  #endif
+  
   renderEnterPassword();
   delay(100);
 
@@ -114,26 +187,78 @@ int loop_enter_password_button2_Click() {
     Serial.println(password_rowCount);
   #endif
 
-  if (password_highlightRow == PASSWORD_MENU_ROW && password_highlightCol < 2) {
-
-    password_highlightCol++; 
+  #if defined(ADC_INPUT)
     
-  }
-  else if (password_highlightRow == password_rowCount - 1) {
-
-    if (password_highlightCol < password_charsOnLastRow - 1) {
-
+    if (password_highlightRow == PASSWORD_MENU_ROW && password_highlightCol < 2) {
+  
+      password_highlightCol++; 
+      
+    }
+    else if (password_highlightRow == password_rowCount - 1) {
+  
+      if (password_highlightCol < password_charsOnLastRow - 1) {
+  
+        password_highlightCol++; 
+          
+      }
+      
+    }
+    else if (password_highlightCol < PASSWORD_CHARS_PER_ROW - 1) {
+  
       password_highlightCol++; 
         
     }
     
-  }
-  else if (password_highlightCol < PASSWORD_CHARS_PER_ROW - 1) {
-
-    password_highlightCol++; 
+  #endif
+  
+  #if defined(KY040_INPUT)
+    
+    if (password_highlightRow == PASSWORD_MENU_ROW) {
       
-  }
+      if (password_highlightCol < 2) { password_highlightCol++; }
+      else if (password_highlightCol == 2) {
+  
+          password_highlightCol = 0; 
+          password_highlightRow = 0;
+          password_topRow = 0;
 
+      }
+      
+    }
+    else if (password_highlightRow == password_rowCount - 1) {
+      
+      if (password_highlightCol < password_charsOnLastRow - 1) { password_highlightCol++; }
+      else if (password_highlightCol == password_charsOnLastRow - 1) {
+
+        password_highlightCol = 0; 
+        password_highlightRow = PASSWORD_MENU_ROW;
+
+      }
+      
+    }
+    else if (password_highlightRow < password_rowCount - 1) {
+
+      if (password_highlightCol == PASSWORD_CHARS_PER_ROW - 1) {
+ 
+        password_highlightCol = 0; 
+        password_highlightRow++;
+            
+        if (password_highlightRow >= password_topRow + PASSWORD_ROWS_VISIBLE) {
+    
+          password_topRow++;
+    
+        }
+      
+      }
+      else if (password_highlightCol < PASSWORD_CHARS_PER_ROW - 1) {
+ 
+        password_highlightCol++; 
+        
+      }
+
+    }
+
+  #endif
   renderEnterPassword();
   delay(100);
 
@@ -417,6 +542,7 @@ int loop_enter_password_button5_Click() {
   else {
 
     password = password + password_chars[(password_highlightRow * PASSWORD_CHARS_PER_ROW) + password_highlightCol];
+
     renderEnterPassword();
     delay(100);
 

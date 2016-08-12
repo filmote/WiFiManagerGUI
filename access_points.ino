@@ -115,16 +115,50 @@ int loop_access_points() {
   while (status == STATUS_ACCESSPOINTS_LOOP) {
 
     yield();
-    sensorValue = analogRead(A0);
 
-    #if defined(DEBUG) && defined(DEBUG_ACCESSPOINTS) && defined(DEBUG_ACCESSPOINTS_SENSOR_VALUE)
-      if (sensorValue < DEBUG_ACCESSPOINTS_SENSOR_VALUE_THRESHOLD) { Serial.println(sensorValue); }
+    #if defined(ADC_INPUT)
+    
+      sensorValue = analogRead(A0);
+
+      #if defined(DEBUG) && defined(DEBUG_ACCESSPOINTS) && defined(DEBUG_ACCESSPOINTS_SENSOR_VALUE)
+        if (sensorValue < DEBUG_ACCESSPOINTS_SENSOR_VALUE_THRESHOLD) { Serial.println(sensorValue); }
+      #endif
+    
+      if (sensorValue > (BUTTON_3 - BUTTON_VARIANCE) && sensorValue < (BUTTON_3 + BUTTON_VARIANCE))     { status = loop_access_points_button3_Click(); }
+      if (sensorValue > (BUTTON_4 - BUTTON_VARIANCE) && sensorValue < (BUTTON_4 + BUTTON_VARIANCE))     { status = loop_access_points_button4_Click(); }
+      if (sensorValue > (BUTTON_5 - BUTTON_VARIANCE) && sensorValue < (BUTTON_5 + BUTTON_VARIANCE))     { status = loop_access_points_button5_Click(); }
+
+    #endif
+
+    #if defined(KY040_INPUT)
+    
+      long newPosition = myEnc.read();
+      
+      if (abs(newPosition - oldPosition) >= KY040_MINIMUM_RESOLUTION) {
+
+        if (newPosition > oldPosition)                                                                  { status = loop_access_points_button3_Click(); }
+        if (newPosition < oldPosition)                                                                  { status = loop_access_points_button4_Click(); }
+    
+        oldPosition = newPosition;
+
+      }
+
+      // Software debounce of button press ..
+      
+      if (isButtonPressed && millis() - lastUpdateMillis > 50) {
+
+        Serial.println("click");
+        isButtonPressed = false;
+        lastUpdateMillis = millis();                                                                      status = loop_access_points_button5_Click();
+
+        myEnc.write(0);    
+        newPosition = 0;
+        oldPosition = 0;
+        
+    }
+
     #endif
     
-    if (sensorValue > (BUTTON_3 - BUTTON_VARIANCE) && sensorValue < (BUTTON_3 + BUTTON_VARIANCE))     { status = loop_access_points_button3_Click(); }
-    if (sensorValue > (BUTTON_4 - BUTTON_VARIANCE) && sensorValue < (BUTTON_4 + BUTTON_VARIANCE))     { status = loop_access_points_button4_Click(); }
-    if (sensorValue > (BUTTON_5 - BUTTON_VARIANCE) && sensorValue < (BUTTON_5 + BUTTON_VARIANCE))     { status = loop_access_points_button5_Click(); }
-
     yield();
     
   }

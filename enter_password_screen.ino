@@ -15,23 +15,25 @@ void renderEnterPassword() {
     password_display = "";
 
     #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(PASSWORD_HIDE_CHARACTERS)
-        Serial.print("  Clear text password: ");
-        Serial.println(password);
-     #endif
+      Serial.print("  Clear text password: ");
+      Serial.print(password);
+      Serial.print("  (length ");
+      Serial.print(password.length());
+      Serial.print(" chars)");
+    #endif
 
+    if (password.length() > 0) {
     
-    for (int i = 0; i < password.length() - 1; i++) {
-
-      password_display = password_display + "*";
-      
+      for (int i = 0; i < password.length() - 1; i++) {
+  
+        password_display = password_display + "*";
+        
         #if defined(DEBUG) && defined(DEBUG_PASSWORD) && defined(PASSWORD_HIDE_CHARACTERS)
           Serial.print("  ");
           Serial.println(password_display);
         #endif
-        
-    }
-
-    if (password.length() > 0) {
+          
+      }
       
       password_display = password_display + password.substring(password.length() - 1);
       
