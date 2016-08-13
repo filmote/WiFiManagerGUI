@@ -50,11 +50,11 @@ If the connection fails the following message is displayed. The access point or 
 
 I built my prototype using some bits and pieces following the schematic shown below.  The five buttons required to control the screen are connected to the ESP8266 via the ADC input freeing up the digital I/O pins for other tasks.  Resistor 5 is included to form a voltage divider and split the 3.3V into (approximately) 2.3V and 1.0V as the ADC will return a value between 0 and 1023 for voltage inputs between 0V and 1.0V.   Before you ask, I used the resistors I had available and they do not produce a nice spread of values.  One of my tasks is to work out the correct values and alter the constants in the application accordingly.
 
-![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/Schematic_2_thumb.jpg)  
+![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/Schematic_2.jpg)  
 
 And the prototype itself. Note that due to real estate issues, I could not arrange the four directional buttons in a diamond pattern - the stuck on piece of paper is there to remind me which button is which.
 
-![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_4_thumb.jpg) 
+![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_4.jpg) 
 
 <br />
 
@@ -62,11 +62,11 @@ And the prototype itself. Note that due to real estate issues, I could not arran
 
 Using a rotary encoder simplifies the wiring significantly. It uses three GPIO pins for input and I have (arbitrarily) used D5, D6 and D7 (GPIO 14, 12 and 13 respectively. These are defined in the constants section of the code and can easily be changed to three unused inputs if they clash with other hardware.
 
-![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/Schematic_1_thumb.jpg)  
+![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/Schematic_1.jpg)  
 
 The prototype looks really messy due to it supporting both the analogue buttons and the KY-040 Rotary Encoder. I have put the encoder on a fly lead so I can use it as a sort of joystick!
 
-![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_6_thumb.jpg) 
+![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_6.jpg) 
 <br />
 
 ##About the Code
