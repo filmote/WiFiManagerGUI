@@ -261,7 +261,7 @@ int status = STATUS_ACCESSPOINTS_INIT;
   #define KY040_DT_INPUT                            D6
   #define KY040_SW_INPUT                            D7
   #define KY040_MINIMUM_RESOLUTION                  4
-  #define KY040_LARGE_ROTATION                      12
+  #define KY040_LARGE_ROTATION                      16
 
 #endif
 
