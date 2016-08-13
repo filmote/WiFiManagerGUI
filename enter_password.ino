@@ -51,9 +51,18 @@ int loop_enter_password() {
       long newPosition = myEnc.read();
       if (abs(newPosition - oldPosition) >= KY040_MINIMUM_RESOLUTION) {
 
-        if (newPosition > oldPosition)                                                                  { status = loop_enter_password_button1_Click(); }     // Left     
-        if (newPosition < oldPosition)                                                                  { status = loop_enter_password_button2_Click(); }     // Right
-    
+        if (abs(newPosition - oldPosition) >= KY040_LARGE_ROTATION) {
+
+          if (newPosition > oldPosition)                                                                { status = loop_enter_password_button3_Click(); }     // Up     
+          if (newPosition < oldPosition)                                                                { status = loop_enter_password_button4_Click(); }     // Down
+
+        }
+        else {
+
+          if (newPosition > oldPosition)                                                                { status = loop_enter_password_button1_Click(); }     // Left     
+          if (newPosition < oldPosition)                                                                { status = loop_enter_password_button2_Click(); }     // Right
+        
+        }
         oldPosition = newPosition;
 
       }
