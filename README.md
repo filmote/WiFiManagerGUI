@@ -5,7 +5,7 @@ An ESP8266 / OLED display project for connecting to an Access Point using a GUI.
 ##Background
 There are numerous articles, projects and libraries that set the ESP8266 into Access Point mode allowing you to connect and configure an SSID and password before restarting the device in Station mode.  These are great but what if you actually have a display attached to the device?  Why can't the device attempt to connect to previously saved settings and if this fails, allow the user to select an Access Point and enter a pasword using a GUI?
 
-I have used a number of screens on the Arduino but wanted this project to be compatible with the small 128x64 pixel OLED displays that have become very popular and cheap to buy.  I also wanted to keep the input as simple as possible and settled on 5 buttons - 4 for movement (up, down, left and right) and one for selecting options. 
+I have used a number of screens on the Arduino but wanted this project to be compatible with the small 128x64 pixel OLED displays that have become very popular and cheap to buy.   I also wanted to keep the input as simple as possible and settled on two separate input methods - 5 buttons arranged in a diamond to control movement and for selecting options and via a KY-040 rotary encoder. 
 
 The inspiration for this project came from two separate GitHub projects :
 
@@ -45,11 +45,27 @@ If the connection fails the following message is displayed. The access point or 
 
 <br />
 
-##My Prototype
+##Prototype using 5 Buttons
 
 I built my prototype using some bits and pieces following the schematic shown below.  The five buttons required to control the screen are connected to the ESP8266 via the ADC input freeing up the digital I/O pins for other tasks.  Resistor 5 is included to form a voltage divider and split the 3.3V into (approximately) 2.3V and 1.0V as the ADC will return a value between 0 and 1023 for voltage inputs between 0V and 1.0V.   Before you ask, I used the resistors I had available and they do not produce a nice spread of values.  One of my tasks is to work out the correct values and alter the constants in the application accordingly.
 
-![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/Schematic.png)  
+![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/Schematic_2.jpg)  
+
+And the prototype itself. Note that due to real estate issues, I could not arrange the four directional buttons in a diamond pattern - the stuck on piece of paper is there to remind me which button is which.
+
+![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_4.jpg) 
+
+<br />
+
+##Prototype using a KY-040 Rotary Encoder
+
+Using a rotary encoder simplifies the wiring significantly. It uses three GPIO pins for input and I have (arbitrarily) used D5, D6 and D7 (GPIO 14, 12 and 13 respectively. These are defined in the constants section of the code and can easily be changed to three unused inputs if they clash with other hardware.
+
+![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/Schematic_1.jpg)  
+
+The prototype looks really messy due to it supporting both the analogue buttons and the KY-040 Rotary Encoder. I have put the encoder on a fly lead so I can use it as a sort of joystick!
+
+![Schematic](https://github.com/filmote/WiFiManagerGUI/blob/master/images/WiFiManagerGUI_6.jpg) 
 <br />
 
 ##About the Code
@@ -68,7 +84,7 @@ The following is a list of tasks that need to be done, may be done and could pos
 - [ ] More testing (obvious)
 - [ ] Determine some appropriate resistor sizes that provide the broadest input values (between 0 - 1023, the resistors I used provide a narrow range between 110 and 330 resulting in some errors).
 - [ ] Harden the handling of the input buttons - debounce, etc
-- [ ] Support input via the digital inputs using a matrix
+- [x] Support input via a KY-040 Rotary Encoder
 - [ ] Support displays of different resolutions  
 - [ ] Support I2C and SPI communication to OLED
 - [ ] Support three buttons (left, right and select only) operation
